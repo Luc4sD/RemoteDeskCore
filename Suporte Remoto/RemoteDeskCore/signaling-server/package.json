@@ -1,0 +1,25 @@
+{
+  "name": "remotedeskcore-signaling",
+  "version": "1.0.0",
+  "description": "Servidor de Sinalização WebRTC para RemoteDeskCore - NAT Traversal",
+  "main": "signaling-server.js",
+  "scripts": {
+    "start": "node signaling-server.js",
+    "dev": "node signaling-server.js 8080",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webrtc",
+    "signaling",
+    "remote-desktop",
+    "p2p",
+    "nat-traversal"
+  ],
+  "author": "Lucas D.",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.14.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {}
+}
