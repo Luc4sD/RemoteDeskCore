@@ -1,0 +1,38 @@
+name: Windows CI Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Dependencies (Chocolatey)
+      run: |
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+        choco install sdl2
+      shell: pwsh
+      
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Run Build Script
+      run: |
+        # Adiciona o CMake ao PATH para a sessão atual do PowerShell
+        $env:PATH = "C:\Program Files\CMake\bin;" + $env:PATH
+        # Executa o script de build para criar a versão Release
+        .\build.ps1 -BuildType release
+      shell: pwsh
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: remote-desktop-app
+        path: build/Release/remote_desktop_app.exe
